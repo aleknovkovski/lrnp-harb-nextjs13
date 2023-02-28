@@ -8,7 +8,9 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
-        <h1>Working on Next.js 13!</h1>
+          <h1 className="text-3xl font-bold underline">
+              Working on Next.js 13!
+          </h1>
       </div>
     </main>
   )
