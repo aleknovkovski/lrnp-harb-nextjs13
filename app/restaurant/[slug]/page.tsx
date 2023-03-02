@@ -4,7 +4,7 @@ import styles from './page.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function SearchPage() {
+export default function RestaurantPage() {
     return (
         <main className="bg-gray-100 min-h-screen w-screen">
             <main className="max-w-screen-2xl m-auto bg-white">
