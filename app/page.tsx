@@ -50,6 +50,7 @@ export default function Home() {
                   {/* HEADER */} {/* CARDS */}
                   <div className="py-3 px-36 mt-10 flex flex-wrap justify-center">
                       {/* CARD */}
+                      <Link href={"/restaurant/milestones-grill"}>
                       <div
                           className="w-64 h-72 m-3 rounded overflow-hidden border cursor-pointer"
                       >
@@ -72,6 +73,7 @@ export default function Home() {
                               <p className="text-sm mt-1 font-bold">Booked 3 times today</p>
                           </div>
                       </div>
+                      </Link>
                       {/* CARD */}
                   </div>
                   {/* CARDS */}
