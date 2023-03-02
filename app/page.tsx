@@ -5,11 +5,14 @@ import {Inter} from 'next/font/google'
 import styles from './page.module.css'
 import Link from "next/link";
 import {useState} from "react";
+import {useRouter} from "next/navigation";
 
 const inter = Inter({subsets: ['latin']})
 
 export default function Home() {
     const [location, setLocation] = useState("")
+    const router = useRouter();
+
     return (
         <main className="bg-gray-100 min-h-screen w-screen">
             <main className="max-w-screen-2xl m-auto bg-white">
@@ -46,7 +49,9 @@ export default function Home() {
                                     value={location}
                                     onChange={(e) => setLocation(e.target.value)}
                                 />
-                                <button className="rounded bg-red-600 px-9 py-2 text-white">
+                                <button
+                                    className="rounded bg-red-600 px-9 py-2 text-white"
+                                    onClick={()=> router.push("/search")}>
                                     Let's go
                                 </button>
                             </div>
