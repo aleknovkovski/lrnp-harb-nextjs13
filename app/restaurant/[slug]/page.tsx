@@ -1,4 +1,3 @@
-import NavBar from "@/app/components/NavBar";
 import {Header} from "@/app/restaurant/[slug]/components/Header";
 import {RestaurantNavbar} from "@/app/restaurant/[slug]/components/RestaurantNavbar";
 import {Title} from "@/app/restaurant/[slug]/components/Title";
@@ -10,12 +9,7 @@ import {ReservationCard} from "@/app/restaurant/[slug]/components/ReservationCar
 
 export default function RestaurantPage() {
     return (
-        <main className="bg-gray-100 min-h-screen w-screen">
-            <main className="max-w-screen-2xl m-auto bg-white">
-                {/* NAVBAR */}
-                <NavBar/>
-                {/* NAVBAR */}
-                {/* HEADER */}
+        <>
                 <Header/>
                 {/* HEADER */}
                 {/* DESCRIPTION PORTION */}
@@ -47,7 +41,6 @@ export default function RestaurantPage() {
                 {/* DESCRIPTION PORTION */}
                 {/* RESERVATION CARD PORTION */}
                 {/* RESERVATION CARD PORTION */}
-            </main>
-        </main>
+        </>
     )
 }
