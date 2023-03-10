@@ -12,7 +12,11 @@ export const metadata = {
     description: 'Milestones Grill | Open Table',
 }
 
-export default function RestaurantPage() {
+export default function RestaurantPage(
+    {params}: {params: { slug: string } }
+    ) {
+
+    console.log(params);
     return (
         <>
                     <div className="bg-white w-[70%] rounded p-3 shadow">
