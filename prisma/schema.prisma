@@ -22,7 +22,9 @@ model Restaurant {
   price       PRICE
   items       Item[]
   location_id Int
-  location    Location  @relation(fields: [location_id], references: [id])
+  location    Location @relation(fields: [location_id], references: [id])
+  cuisine_id  Int
+  cuisine     Cuisine   @relation(fields: [cuisine_id], references: [id])
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 }
@@ -39,6 +41,14 @@ model Item {
 }
 
 model Location {
+  id          Int          @id @default(autoincrement())
+  name        String
+  restaurants Restaurant[]
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @updatedAt
+}
+
+model Cuisine {
   id          Int          @id @default(autoincrement())
   name        String
   restaurants Restaurant[]
