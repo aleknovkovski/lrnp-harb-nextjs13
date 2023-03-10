@@ -13,10 +13,19 @@ export interface RestaurantCardType {
 
 const prisma = new PrismaClient();
 
-async function fetchRestaurants() {
-  const restaurants = await prisma.restaurant.findMany();
+async function fetchRestaurants(): Promise<RestaurantCardType[]> {
+  const restaurants = await prisma.restaurant.findMany({
+    select: {
+      id: true,
+      name: true,
+      main_image: true,
+      cuisine: true,
+      location: true,
+      price: true,
+    },
+  });
   return restaurants;
-};
+}
 
 export default async function Home() {
     const restaurants = await fetchRestaurants()
