@@ -3,6 +3,11 @@ import {SearchSidebar} from "@/app/search/components/SearchSidebar";
 import {RestaurantCard} from "@/app/search/components/RestaurantCard";
 import {SearchBar} from "@/app/components/SearchBar";
 
+export const metadata = {
+   title: 'Search | Open Table',
+   description: 'Open Table Search Page',
+}
+
 export default function SearchPage() {
     return (<>
         <div className="bg-gradient-to-r to-[#5f6984] from-[#0f1f47] p-2">

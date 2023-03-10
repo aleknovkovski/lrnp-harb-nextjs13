@@ -7,6 +7,11 @@ import {Images} from "@/app/restaurant/[slug]/components/Images";
 import {Reviews} from "@/app/restaurant/[slug]/components/Reviews";
 import {ReservationCard} from "@/app/restaurant/[slug]/components/ReservationCard";
 
+export const metadata = {
+    title: 'Milestones Grill | Open Table',
+    description: 'Milestones Grill | Open Table',
+}
+
 export default function RestaurantPage() {
     return (
         <>
