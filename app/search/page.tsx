@@ -1,4 +1,3 @@
-import NavBar from "@/app/components/NavBar";
 import {SearchSidebar} from "@/app/search/components/SearchSidebar";
 import {RestaurantCard} from "@/app/search/components/RestaurantCard";
 import {SearchBar} from "@/app/components/SearchBar";
@@ -8,7 +7,10 @@ export const metadata = {
    description: 'Open Table Search Page',
 }
 
-export default function SearchPage() {
+export default async function SearchPage(props: any) {
+    const location = props.searchParams.location;
+    console.log(location)
+
     return (<>
         <div className="bg-gradient-to-r to-[#5f6984] from-[#0f1f47] p-2">
             <SearchBar/>
