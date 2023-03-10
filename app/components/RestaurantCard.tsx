@@ -1,6 +1,11 @@
 import Link from "next/link";
+import {RestaurantCardType} from "@/app/page";
 
-export default function RestaurantCard () {
+interface Props {
+    restaurant: RestaurantCardType
+}
+
+export default function RestaurantCard ({}: Props) {
     return (
         <Link href={"/restaurant/milestones-grill"}>
             <div
