@@ -7,7 +7,10 @@ const prisma = new PrismaClient();
 
 const fetchRestaurantMenu = async (slug: string) => {
 
-  const restaurant = await prisma.restaurant.findFirst({
+  const restaurant = await prisma.restaurant.findUnique({
+   where: {
+     slug,
+   },
     select: {
       items: true,
     },
