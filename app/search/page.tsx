@@ -1,7 +1,7 @@
 import {SearchSidebar} from "@/app/search/components/SearchSidebar";
 import {RestaurantCard} from "@/app/search/components/RestaurantCard";
 import {SearchBar} from "@/app/components/SearchBar";
-import {PrismaClient} from "@prisma/client";
+import {PrismaClient, Restaurant} from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function getRestaurantsByLocation(location: any) {
@@ -27,9 +27,13 @@ export const metadata = {
 
 export default async function SearchPage(props: any) {
     const location = props.searchParams.location;
-    const res = await getRestaurantsByLocation(location)
-    if (res) {
-        console.log(res)
+    const restaurants = await getRestaurantsByLocation(location)
+    let restaurantsMarkup;
+
+    if (restaurants) {
+        restaurantsMarkup = restaurants.map((restaurant: any)=> {
+            return <RestaurantCard restaurant={restaurant}/>
+        })
     }
 
     return (<>
@@ -42,7 +46,7 @@ export default async function SearchPage(props: any) {
             {/* SEARCH SIDE BAR */}
             <div className="w-5/6">
                 {/* RESTAURANT CARD */}
-                <RestaurantCard/>
+                {restaurantsMarkup}
                 {/* RESTAURANT CARD */}
             </div>
         </div>
