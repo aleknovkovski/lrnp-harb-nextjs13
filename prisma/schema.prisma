@@ -21,6 +21,8 @@ model Restaurant {
   slug        String   @unique
   price       PRICE
   items       Item[]
+  location_id Int
+  location    Location  @relation(fields: [location_id], references: [id])
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 }
@@ -34,6 +36,14 @@ model Item {
   restaurant    Restaurant @relation(fields: [restaurant_id], references: [id])
   created_at    DateTime   @default(now())
   updated_at    DateTime   @updatedAt
+}
+
+model Location {
+  id          Int          @id @default(autoincrement())
+  name        String
+  restaurants Restaurant[]
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @updatedAt
 }
 
 enum PRICE {
