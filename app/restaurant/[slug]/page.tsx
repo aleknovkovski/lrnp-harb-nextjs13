@@ -47,15 +47,15 @@ export default async function RestaurantPage(
     {params}: {params: { slug: string } }
     ) {
 
-    console.log(await fetchRestaurantBySlug(params.slug))
+    const restaurant = await fetchRestaurantBySlug(params.slug)
 
     return (
         <>
                     <div className="bg-white w-[70%] rounded p-3 shadow">
                         <RestaurantNavbar slug={params.slug}/>
-                        <Title/>
+                        <Title name={restaurant.name} />
                         <Rating/>
-                        <Description/>
+                        <Description description={restaurant.description} />
                         <Images/>
                         <Reviews/>
                     </div>
