@@ -2,27 +2,23 @@ import {SearchSidebar} from "@/app/search/components/SearchSidebar";
 import {RestaurantCard} from "@/app/search/components/RestaurantCard";
 import {SearchBar} from "@/app/components/SearchBar";
 import {PrismaClient, Restaurant} from "@prisma/client";
+
 const prisma = new PrismaClient();
 
 async function getRestaurantsByLocation(location: any) {
-   const locationObj = await prisma.location.findFirst({
-       where: {name: location}
-   });
-   if(!locationObj) {return}
+    const restaurants = await prisma.restaurant.findMany({
+        where: {
+            location: {name: location.toLowerCase()},
+        }
+    });
 
-   if (locationObj.id) {
-       const restaurants = await prisma.restaurant.findMany({
-           where: {location_id: locationObj.id}
-       });
-       if (restaurants.length > 0) {
-           return restaurants
-       }
-   }
+    if (!restaurants) return
+    else return restaurants
 }
 
 export const metadata = {
-   title: 'Search | Open Table',
-   description: 'Open Table Search Page',
+    title: 'Search | Open Table',
+    description: 'Open Table Search Page',
 }
 
 export default async function SearchPage(props: any) {
@@ -31,7 +27,7 @@ export default async function SearchPage(props: any) {
     let restaurantsMarkup;
 
     if (restaurants) {
-        restaurantsMarkup = restaurants.map((restaurant: any)=> {
+        restaurantsMarkup = restaurants.map((restaurant: any) => {
             return <RestaurantCard restaurant={restaurant}/>
         })
     }
