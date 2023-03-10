@@ -11,7 +11,7 @@ export function Menu({ menu }: { menu: Item[] }) {
         {menu.length ? (
           <div className="flex flex-wrap justify-between">
             {menu.map((item) => (
-              <MenuCard/>
+              <MenuCard key={item.id} item={item} />
             ))}
           </div>
         ) : (
