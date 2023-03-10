@@ -30,7 +30,7 @@ export default async function MenuPage(
         <>
             <div className="bg-white w-[100%] rounded p-3 shadow">
                 <RestaurantNavbar slug={params.slug} />
-                <Menu/>
+                <Menu menu={menu} />
             </div>
         </>
     )
