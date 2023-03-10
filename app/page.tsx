@@ -30,7 +30,7 @@ async function fetchRestaurants(): Promise<RestaurantCardType[]> {
 export default async function Home() {
     const restaurants = await fetchRestaurants()
     const restaurantsMarkup = restaurants.map((restaurant) => {
-        return <h3>{restaurant.name}</h3>
+        return <RestaurantCard restaurant={restaurant} />;
     })
 
     return (<>
