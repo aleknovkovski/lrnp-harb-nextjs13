@@ -10,11 +10,15 @@ async function fetchRestaurants() {
 };
 
 export default async function Home() {
-    console.log(await fetchRestaurants())
+    const restaurants = await fetchRestaurants()
+    const restaurantsMarkup = restaurants.map((restaurant) => {
+        return <h3>{restaurant.name}</h3>
+    })
+
     return (<>
         <Header/>
         <div className="py-3 px-36 mt-10 flex flex-wrap justify-center">
-            <RestaurantCard/>
+            {restaurantsMarkup}
         </div>
     </>)
 }
