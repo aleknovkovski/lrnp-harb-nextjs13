@@ -1,5 +1,5 @@
 import {Review} from "@prisma/client";
-import {calculateReviewRatingAverage} from "@/calculateReviewRatingAverage";
+import {calculateReviewRatingAverage} from "@/utils/calculateReviewRatingAverage";
 
 export function Rating({reviews}: { reviews: Review[] }) {
     return <div className="flex items-end">
