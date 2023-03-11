@@ -5,7 +5,11 @@ export function SearchSidebar({
                                   locations,
                                   cuisines,
                                   searchParams
-                              }: { locations: Location[], cuisines: Cuisine[], searchParams: { city?: string; cuisine?: string; price?: PRICE }; }) {
+                              }: {
+    locations: Location[],
+    cuisines: Cuisine[],
+    searchParams: { city?: string; cuisine?: string; price?: PRICE };
+}) {
     console.log(searchParams)
     return <div className="w-1/5">
         <div className="border-b pb-4 flex flex-col">
