@@ -10,7 +10,7 @@ export default function Stars({
   reviews,
   rating,
 }: {
-  reviews: Review[];
+  reviews?: Review[];
   rating?: number;
 }) {
   const reviewRating = rating || calculateReviewRatingAverage(reviews);
