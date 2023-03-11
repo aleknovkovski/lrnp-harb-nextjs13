@@ -13,7 +13,13 @@ export default function Stars({
   reviews?: Review[];
   rating?: number;
 }) {
-  const reviewRating = rating || calculateReviewRatingAverage(reviews);
+  let reviewRating: number;
+
+  if(reviews){
+    reviewRating = calculateReviewRatingAverage(reviews);
+  } else if (rating){
+    reviewRating = rating
+  }
 
   const renderStars = () => {
     const stars = [];
