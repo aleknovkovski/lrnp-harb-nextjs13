@@ -27,6 +27,14 @@ async function getRestaurantsByLocation(location: any) {
     else return restaurants
 }
 
+const fetchLocations = async () => {
+  return prisma.location.findMany();
+};
+
+const fetchCuisines = async () => {
+  return prisma.cuisine.findMany();
+};
+
 export const metadata = {
     title: 'Search | Open Table',
     description: 'Open Table Search Page',
