@@ -14,6 +14,7 @@ async function getRestaurantsByLocation(searchParams: { location?: any, cuisine?
         cuisine: true,
         location: true,
         slug: true,
+        reviews: true,
     };
 
     const where: any = {};
