@@ -39,7 +39,7 @@ export default async function SearchPage(props: any) {
 
     if (restaurants) {
         restaurantsMarkup = restaurants.map((restaurant: any) => {
-            return <RestaurantCard restaurant={restaurant}/>
+            return <RestaurantCard restaurant={restaurant} key={restaurant.id}/>
         })
     }
 
