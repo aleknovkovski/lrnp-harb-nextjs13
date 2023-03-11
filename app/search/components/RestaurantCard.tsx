@@ -17,6 +17,7 @@ interface Restaurant {
 export function RestaurantCard({restaurant}: { restaurant: Restaurant }) {
 
     const renderRatingText = () => {
+        // @ts-ignore
         const rating = calculateReviewRatingAverage(restaurant.reviews);
         if (rating > 4) return "Awesome";
         else if (rating <= 4 && rating > 3) return "Good";
