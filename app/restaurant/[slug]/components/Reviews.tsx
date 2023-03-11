@@ -1,7 +1,10 @@
-export function Reviews() {
+import {Review} from "@prisma/client";
+
+export function Reviews({ reviews }: { reviews: Review[] }) {
     return <div>
         <h1 className="font-bold text-3xl mt-10 mb-7 borber-b pb-5">
-            What 100 people are saying
+            What {reviews.length} {reviews.length === 1 ? "person" : "people"} are
+        saying
         </h1>
         <div>
             {/* REVIEW CARD */}

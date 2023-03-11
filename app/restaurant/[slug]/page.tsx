@@ -59,7 +59,7 @@ export default async function RestaurantPage(
                         <Rating/>
                         <Description description={restaurant.description} />
                         <Images images={restaurant.images} />
-                        <Reviews/>
+                        <Reviews reviews={restaurant.reviews}/>
                     </div>
                     <div className="w-[27%] relative text-reg">
                         <ReservationCard/>
