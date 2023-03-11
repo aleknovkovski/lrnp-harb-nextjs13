@@ -6,10 +6,21 @@ import {PrismaClient, Restaurant} from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function getRestaurantsByLocation(location: any) {
+    const select = {
+        id: true,
+        name: true,
+        main_image: true,
+        price: true,
+        cuisine: true,
+        location: true,
+        slug: true,
+    };
+
     const restaurants = await prisma.restaurant.findMany({
         where: {
             location: {name: location.toLowerCase()},
-        }
+        },
+        select: select
     });
 
     if (!restaurants) return
