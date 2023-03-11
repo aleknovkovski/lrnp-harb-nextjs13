@@ -17,8 +17,8 @@ export function RestaurantCard(props: any) {
             <div className="mb-9">
                 <div className="font-light flex text-reg">
                     <Price price={props.restaurant.price} />
-                    <p className="mr-4">Mexican</p>
-                    <p className="mr-4">Ottawa</p>
+                    <p className="mr-4">{props.restaurant.cuisine.name}</p>
+                    <p className="mr-4">{props.restaurant.location.name}</p>
                 </div>
             </div>
             <div className="text-red-600">
