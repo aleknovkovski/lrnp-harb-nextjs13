@@ -5,7 +5,7 @@ import {Description} from "@/app/restaurant/[slug]/components/Description";
 import {Images} from "@/app/restaurant/[slug]/components/Images";
 import {Reviews} from "@/app/restaurant/[slug]/components/Reviews";
 import {ReservationCard} from "@/app/restaurant/[slug]/components/ReservationCard";
-import {PrismaClient} from "@prisma/client";
+import {PrismaClient, Review} from "@prisma/client";
 
 export const metadata = {
     title: 'Milestones Grill | Open Table',
@@ -20,6 +20,7 @@ interface Restaurant {
   images: string[];
   description: string;
   slug: string;
+  reviews: Review[];
 }
 
 const fetchRestaurantBySlug = async (slug: string): Promise<Restaurant> => {
@@ -33,6 +34,7 @@ const fetchRestaurantBySlug = async (slug: string): Promise<Restaurant> => {
       images: true,
       description: true,
       slug: true,
+      reviews: true,
     },
   });
 
