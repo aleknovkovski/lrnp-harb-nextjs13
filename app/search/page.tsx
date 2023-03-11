@@ -60,7 +60,7 @@ export default async function SearchPage(props: any) {
         </div>
         <div className="flex py-4 m-auto w-2/3 justify-between items-start">
             {/* SEARCH SIDE BAR */}
-            <SearchSidebar locations={locations} cuisines={cuisines}/>
+            <SearchSidebar locations={locations} cuisines={cuisines} searchParams={props.searchParams}/>
             {/* SEARCH SIDE BAR */}
             <div className="w-5/6">
                 {/* RESTAURANT CARD */}

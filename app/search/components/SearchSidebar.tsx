@@ -1,8 +1,8 @@
-import {Cuisine, Location} from "@prisma/client";
+import {Cuisine, Location, PRICE} from "@prisma/client";
 import Link from "next/link";
 
-export function SearchSidebar({locations, cuisines}: { locations: Location[], cuisines: Cuisine[] }) {
-    console.log(locations)
+export function SearchSidebar({locations, cuisines, searchParams}: { locations: Location[], cuisines: Cuisine[], searchParams: { city?: string; cuisine?: string; price?: PRICE }; }) {
+    console.log(searchParams)
     return <div className="w-1/5">
         <div className="border-b pb-4">
             <h1 className="mb-2">Region</h1>
