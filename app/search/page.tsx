@@ -43,6 +43,9 @@ export const metadata = {
 export default async function SearchPage(props: any) {
     const location = props.searchParams.location;
     const restaurants = await getRestaurantsByLocation(location)
+    const locations = await fetchLocations();
+    const cuisines = await fetchCuisines();
+
     let restaurantsMarkup;
 
     if (restaurants) {
@@ -57,7 +60,7 @@ export default async function SearchPage(props: any) {
         </div>
         <div className="flex py-4 m-auto w-2/3 justify-between items-start">
             {/* SEARCH SIDE BAR */}
-            <SearchSidebar/>
+            <SearchSidebar locations={locations} cuisines={cuisines}/>
             {/* SEARCH SIDE BAR */}
             <div className="w-5/6">
                 {/* RESTAURANT CARD */}

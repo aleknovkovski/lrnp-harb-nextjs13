@@ -1,4 +1,6 @@
-export function SearchSidebar() {
+import {Cuisine, Location} from "@prisma/client";
+
+export function SearchSidebar({locations, cuisines}: { locations: Location[], cuisines: Cuisine[] }) {
     return <div className="w-1/5">
         <div className="border-b pb-4">
             <h1 className="mb-2">Region</h1>
