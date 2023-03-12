@@ -18,44 +18,49 @@ export default function AuthModalInputs({
                                             handleChangeInput,
                                             isSignin,
                                         }: Props) {
+
+    const signupInputsMarkup = (<>
+        <div className="my-3 flex justify-between text-sm">
+            <input
+                type="text"
+                className="border rounded p-2 py-3 w-[49%]"
+                placeholder="First Name"
+                value={inputs.firstName}
+                onChange={handleChangeInput}
+                name="firstName"
+            />
+            <input
+                type="text"
+                className="border rounded p-2 py-3 w-[49%]"
+                placeholder="Last Name"
+                value={inputs.lastName}
+                onChange={handleChangeInput}
+                name="lastName"
+            />
+        </div>
+        <div className="my-3 flex justify-between text-sm">
+            <input
+                type="text"
+                className="border rounded p-2 py-3 w-[49%]"
+                placeholder="Phone"
+                value={inputs.phone}
+                onChange={handleChangeInput}
+                name="phone"
+            />
+            <input
+                type="text"
+                className="border rounded p-2 py-3 w-[49%]"
+                placeholder="City"
+                value={inputs.city}
+                onChange={handleChangeInput}
+                name="city"
+            />
+        </div>
+    </>)
+
     return (
         <div>
-            <div className="my-3 flex justify-between text-sm">
-                <input
-                    type="text"
-                    className="border rounded p-2 py-3 w-[49%]"
-                    placeholder="First Name"
-                    value={inputs.firstName}
-                    onChange={handleChangeInput}
-                    name="firstName"
-                />
-                <input
-                    type="text"
-                    className="border rounded p-2 py-3 w-[49%]"
-                    placeholder="Last Name"
-                    value={inputs.lastName}
-                    onChange={handleChangeInput}
-                    name="lastName"
-                />
-            </div>
-            <div className="my-3 flex justify-between text-sm">
-                <input
-                    type="text"
-                    className="border rounded p-2 py-3 w-[49%]"
-                    placeholder="Phone"
-                    value={inputs.phone}
-                    onChange={handleChangeInput}
-                    name="phone"
-                />
-                <input
-                    type="text"
-                    className="border rounded p-2 py-3 w-[49%]"
-                    placeholder="City"
-                    value={inputs.city}
-                    onChange={handleChangeInput}
-                    name="city"
-                />
-            </div>
+            {isSignin ? null : signupInputsMarkup}
             <div className="my-3 flex justify-between text-sm">
                 <input
                     type="email"
