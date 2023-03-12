@@ -4,6 +4,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import AuthModalInputs from "@/app/components/AuthModalInputs";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -57,6 +58,10 @@ export default function AuthModal({isSignin}: { isSignin: boolean }) {
                                         "Create Your OpenTable Account"
                                     )}
                                 </h2>
+                                <AuthModalInputs />
+                                <button className="uppercase bg-red-600 w-full text-white p-3 rounded text-sm mb-5 disabled:bg-gray-400">
+                                    {flip("Sign In", "Create Account")}
+                                </button>
                             </div>
                         </header>
                     </div>
