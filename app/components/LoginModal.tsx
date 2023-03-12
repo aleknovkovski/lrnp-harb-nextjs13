@@ -18,18 +18,24 @@ const style = {
     p: 4,
 };
 
-export default function LoginModal() {
+export default function AuthModal({ isSignin }: { isSignin: boolean }) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const flip = (signinContent: string, signupContent: string) => {
+        return isSignin ? signinContent : signupContent;
+    };
+
     return (
         <div>
             <button
-                className="bg-blue-400 text-white border p-1 px-4 rounded mr-3"
+                className={`
+                ${flip("bg-blue-400 text-white", "")} border p-1 px-4 rounded mr-3
+                `}
                 onClick={handleOpen}
             >
-                Sign in
+                {flip("Sign in", "Sign up")}
             </button>
             <Modal
                 open={open}

@@ -9,8 +9,8 @@ export default function NavBar() {
             </Link>
             <div>
                 <div className="flex">
-                    <LoginModal/>
-                    <button className="border p-1 px-4 rounded">Sign up</button>
+                    <LoginModal isSignin={true}/>
+                    <LoginModal isSignin={false}/>
                 </div>
             </div>
         </nav>
