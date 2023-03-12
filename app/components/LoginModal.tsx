@@ -25,7 +25,12 @@ export default function LoginModal() {
 
     return (
         <div>
-            <Button onClick={handleOpen}>Open modal</Button>
+            <button
+                className="bg-blue-400 text-white border p-1 px-4 rounded mr-3"
+                onClick={handleOpen}
+            >
+                Sign in
+            </button>
             <Modal
                 open={open}
                 onClose={handleClose}
