@@ -10,9 +10,14 @@ interface Props {
         password: string;
     };
     handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    isSignin: boolean;
 }
 
-export default function AuthModalInputs({inputs, handleChangeInput}: Props) {
+export default function AuthModalInputs({
+                                            inputs,
+                                            handleChangeInput,
+                                            isSignin,
+                                        }: Props) {
     return (
         <div>
             <div className="my-3 flex justify-between text-sm">
