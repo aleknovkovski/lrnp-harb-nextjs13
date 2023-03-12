@@ -1,6 +1,17 @@
 import React from "react";
 
-export default function AuthModalInputs() {
+interface Props {
+  inputs: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    city: string;
+    password: string;
+  };
+}
+
+export default function AuthModalInputs({inputs}: Props) {
     return (
         <div>
             <div className="my-3 flex justify-between text-sm">
