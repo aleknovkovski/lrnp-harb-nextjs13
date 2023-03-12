@@ -36,17 +36,6 @@ export default function AuthModalInputs({inputs, handleChangeInput}: Props) {
             <div className="my-3 flex justify-between text-sm">
                 <input
                     type="text"
-                    className="border rounded p-2 py-3 w-full"
-                    placeholder="Email"
-                    value={inputs.email}
-                    onChange={handleChangeInput}
-                    name="email"
-                />
-            </div>
-
-            <div className="my-3 flex justify-between text-sm">
-                <input
-                    type="text"
                     className="border rounded p-2 py-3 w-[49%]"
                     placeholder="Phone"
                     value={inputs.phone}
@@ -62,7 +51,16 @@ export default function AuthModalInputs({inputs, handleChangeInput}: Props) {
                     name="city"
                 />
             </div>
-
+            <div className="my-3 flex justify-between text-sm">
+                <input
+                    type="email"
+                    className="border rounded p-2 py-3 w-full"
+                    placeholder="Email"
+                    value={inputs.email}
+                    onChange={handleChangeInput}
+                    name="email"
+                />
+            </div>
             <div className="my-3 flex justify-between text-sm">
                 <input
                     type="password"
