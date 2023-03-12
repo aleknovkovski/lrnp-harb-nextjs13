@@ -1,17 +1,19 @@
 import React from "react";
 
 interface Props {
-  inputs: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    city: string;
-    password: string;
-  };
+    inputs: {
+        firstName: string;
+        lastName: string;
+        email: string;
+        phone: string;
+        city: string;
+        password: string;
+    };
+    handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function AuthModalInputs({inputs}: Props) {
+
+export default function AuthModalInputs({inputs, handleChangeInput}: Props) {
     return (
         <div>
             <div className="my-3 flex justify-between text-sm">
