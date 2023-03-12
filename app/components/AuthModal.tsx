@@ -17,7 +17,7 @@ const style = {
     p: 4,
 };
 
-export default function AuthModal({ isSignin }: { isSignin: boolean }) {
+export default function AuthModal({isSignin}: { isSignin: boolean }) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -43,12 +43,23 @@ export default function AuthModal({ isSignin }: { isSignin: boolean }) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{mt: 2}}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
+                    <div className="p-2 h-[80vh]">
+                        <header>
+                            <div className="uppercase font-bold text-center pb-2 border-b mb-2">
+                                <p className="text-sm">
+                                    {flip("Sign In", "Create Account")}
+                                </p>
+                            </div>
+                            <div className="m-auto">
+                                <h2 className="text-2xl font-light text-center">
+                                    {flip(
+                                        "Log Into Your Account",
+                                        "Create Your OpenTable Account"
+                                    )}
+                                </h2>
+                            </div>
+                        </header>
+                    </div>
                 </Box>
             </Modal>
         </div>
