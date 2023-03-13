@@ -58,5 +58,21 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         });
     }
 
+    const userWithEmail = await prisma.user.findUnique({
+        where: {
+            email: email,
+        },
+    });
+
+    if (userWithEmail) {
+        const data = {errorMessage: "Email is associated with another account"}
+        const json = JSON.stringify(data, null, 2)
+        return new NextResponse(json, {
+            status: 400, headers: {
+                'content-type': 'application/json; charset=utf-8',
+            }
+        })
+    }
+
     return NextResponse.json({name: firstName + " " + lastName})
 }
