@@ -3,6 +3,7 @@ import validator from "validator";
 import {PrismaClient} from "@prisma/client";
 
 const prisma = new PrismaClient();
+import bcrypt from "bcrypt";
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
     const {email, password} = await request.json();
@@ -44,6 +45,18 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     });
 
     if (!user) {
+        const data = {errorMessage: "Email or password is invalid"}
+        const json = JSON.stringify(data, null, 2)
+        return new NextResponse(json, {
+            status: 401, headers: {
+                'content-type': 'application/json; charset=utf-8',
+            }
+        });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
         const data = {errorMessage: "Email or password is invalid"}
         const json = JSON.stringify(data, null, 2)
         return new NextResponse(json, {
