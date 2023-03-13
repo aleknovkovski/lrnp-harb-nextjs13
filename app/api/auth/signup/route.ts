@@ -2,6 +2,7 @@ import {NextRequest, NextResponse} from "next/server";
 import validator from "validator";
 import {PrismaClient} from "@prisma/client";
 import bcrypt from "bcrypt";
+import * as jose from "jose";
 
 const prisma = new PrismaClient();
 
@@ -87,5 +88,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         },
     });
 
-    return NextResponse.json({name: firstName + " " + lastName + " w hashed: " + hashedPassword})
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+
+    const alg = "HS256";
+    const token = await new jose.SignJWT({email: user.email})
+        .setProtectedHeader({alg})
+        .setExpirationTime("24h")
+        .sign(secret);
+
+    return NextResponse.json({name: firstName + " " + lastName + " w jwt: " + token})
 }
