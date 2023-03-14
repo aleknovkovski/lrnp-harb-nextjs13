@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import AuthModalInputs from "@/app/components/AuthModalInputs";
 import {useEffect, useState} from "react";
+import useAuth from "@/hooks/useAuth";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -23,6 +24,7 @@ export default function AuthModal({isSignin}: { isSignin: boolean }) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const {signin} = useAuth()
 
     const flip = (signinContent: string, signupContent: string) => {
         return isSignin ? signinContent : signupContent;
@@ -69,6 +71,12 @@ export default function AuthModal({isSignin}: { isSignin: boolean }) {
         setDisabled(true);
     }, [inputs]);
 
+    const handleClick = () => {
+        if (isSignin) {
+            signin({email: inputs.email, password: inputs.password});
+        }
+    };
+
     return (
         <div>
             <button
@@ -105,6 +113,7 @@ export default function AuthModal({isSignin}: { isSignin: boolean }) {
                                 <button
                                     className="uppercase bg-red-600 w-full text-white p-3 rounded text-sm mb-5 disabled:bg-gray-400"
                                     disabled={disabled}
+                                    onClick={handleClick}
                                 >
                                     {flip("Sign In", "Create Account")}
 
