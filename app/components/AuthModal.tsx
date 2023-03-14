@@ -5,8 +5,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import AuthModalInputs from "@/app/components/AuthModalInputs";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import useAuth from "@/hooks/useAuth";
+import {AuthenticationContext} from "@/app/context/AuthContext";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -21,6 +22,7 @@ const style = {
 };
 
 export default function AuthModal({isSignin}: { isSignin: boolean }) {
+   const {error, setAuthState} = useContext(AuthenticationContext)
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -96,6 +98,12 @@ export default function AuthModal({isSignin}: { isSignin: boolean }) {
                 <Box sx={style}>
                     <div className="p-2 h-[80vh]">
                         <header>
+                            <h1
+                                className="text-center"
+                                onClick={()=> setAuthState({loading: false, data: null, error: "yay"})}
+                            >
+                                {error}
+                            </h1>
                             <div className="uppercase font-bold text-center pb-2 border-b mb-2">
                                 <p className="text-sm">
                                     {flip("Sign In", "Create Account")}
