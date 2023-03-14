@@ -26,7 +26,13 @@ const useAuth = () => {
                 loading: false,
             });
         } catch (error: any) {
-            console.log(error)
+            const errorMessage = error.response.data.errorMessage
+            console.log(errorMessage)
+            setAuthState({
+                data: null,
+                error: errorMessage,
+                loading: false,
+            });
         }
     };
 
