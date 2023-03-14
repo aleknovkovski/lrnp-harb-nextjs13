@@ -75,5 +75,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         .setExpirationTime("24h")
         .sign(secret);
 
-    return NextResponse.json({user: user.email + " w jwt: " + token})
+    return NextResponse.json({
+      firstName: user.first_name,
+      lastName: user.last_name,
+      email: user.email,
+      phone: user.phone,
+      city: user.city,
+    })
 }
