@@ -27,7 +27,7 @@ const useAuth = () => {
             });
             handleClose();
         } catch (error: any) {
-            const errorMessage = error.response.data.errorMessage
+            const errorMessage = error.response.data.errorMessage || error.message || error
             console.log(errorMessage)
             setAuthState({
                 data: null,
