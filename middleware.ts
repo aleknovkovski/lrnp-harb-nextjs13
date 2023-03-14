@@ -4,19 +4,13 @@ export async function middleware(request: NextRequest) {
   const bearerToken = request.headers.get("authorization") as string;
 
   if (!bearerToken) {
-    return new NextResponse(
-      JSON.stringify({ errorMessage: "Unauthorized request" }),
-      { status: 401 }
-    );
+    return NextResponse.json({errorMessage: "Unauthorized request"}, {status: 401})
   }
 
   const token = bearerToken.split(" ")[1];
 
   if (!token) {
-    return new NextResponse(
-      JSON.stringify({ errorMessage: "Unauthorized request" }),
-      { status: 401 }
-    );
+    return NextResponse.json({errorMessage: "Unauthorized request"}, {status: 401})
   }
 
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
@@ -24,10 +18,7 @@ export async function middleware(request: NextRequest) {
   try {
     await jose.jwtVerify(token, secret);
   } catch (error) {
-    return new NextResponse(
-      JSON.stringify({ errorMessage: "Unauthorized request" }),
-      { status: 401 }
-    );
+    return NextResponse.json({errorMessage: "Unauthorized request"}, {status: 401})
   }
 }
 
