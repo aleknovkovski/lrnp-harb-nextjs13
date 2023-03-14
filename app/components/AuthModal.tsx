@@ -8,6 +8,7 @@ import AuthModalInputs from "@/app/components/AuthModalInputs";
 import {useContext, useEffect, useState} from "react";
 import useAuth from "@/hooks/useAuth";
 import {AuthenticationContext} from "@/app/context/AuthContext";
+import {Alert, CircularProgress} from "@mui/material";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -80,6 +81,7 @@ export default function AuthModal({isSignin}: { isSignin: boolean }) {
     };
     const boxContentsMarkup = (
         <header>
+
             <div className="uppercase font-bold text-center pb-2 border-b mb-2">
                 <p className="text-sm">
                     {flip("Sign In", "Create Account")}
@@ -123,7 +125,12 @@ export default function AuthModal({isSignin}: { isSignin: boolean }) {
             >
                 <Box sx={style}>
                     <div className="p-2 h-[80vh]">
-                        {loading ? <h1>Loading</h1> : boxContentsMarkup}
+                        {error ?
+                            <Alert severity="error" className="mb-4">
+                                {error}
+                            </Alert>
+                            : null}
+                        {loading ? <CircularProgress/> : boxContentsMarkup}
                     </div>
                 </Box>
             </Modal>
