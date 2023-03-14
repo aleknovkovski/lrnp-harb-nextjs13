@@ -22,7 +22,7 @@ const style = {
 };
 
 export default function AuthModal({isSignin}: { isSignin: boolean }) {
-   const {error, setAuthState} = useContext(AuthenticationContext)
+   const {error, setAuthState, loading} = useContext(AuthenticationContext)
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -98,6 +98,7 @@ export default function AuthModal({isSignin}: { isSignin: boolean }) {
                 <Box sx={style}>
                     <div className="p-2 h-[80vh]">
                         <header>
+                            <p>{loading ? "loading" : "not loading"}</p>
                             <div className="uppercase font-bold text-center pb-2 border-b mb-2">
                                 <p className="text-sm">
                                     {flip("Sign In", "Create Account")}
