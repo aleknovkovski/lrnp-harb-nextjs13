@@ -22,7 +22,7 @@ const style = {
 };
 
 export default function AuthModal({isSignin}: { isSignin: boolean }) {
-   const {error, setAuthState, loading} = useContext(AuthenticationContext)
+    const {error, setAuthState, loading} = useContext(AuthenticationContext)
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -78,6 +78,32 @@ export default function AuthModal({isSignin}: { isSignin: boolean }) {
             signin({email: inputs.email, password: inputs.password});
         }
     };
+    const boxContentsMarkup = (
+        <header>
+            <div className="uppercase font-bold text-center pb-2 border-b mb-2">
+                <p className="text-sm">
+                    {flip("Sign In", "Create Account")}
+                </p>
+            </div>
+            <div className="m-auto">
+                <h2 className="text-2xl font-light text-center">
+                    {flip(
+                        "Log Into Your Account",
+                        "Create Your OpenTable Account"
+                    )}
+                </h2>
+                <AuthModalInputs inputs={inputs} handleChangeInput={handleChangeInput}
+                                 isSignin={isSignin}/>
+                <button
+                    className="uppercase bg-red-600 w-full text-white p-3 rounded text-sm mb-5 disabled:bg-gray-400"
+                    disabled={disabled}
+                    onClick={handleClick}
+                >
+                    {flip("Sign In", "Create Account")}
+                </button>
+            </div>
+        </header>
+    )
 
     return (
         <div>
@@ -97,32 +123,7 @@ export default function AuthModal({isSignin}: { isSignin: boolean }) {
             >
                 <Box sx={style}>
                     <div className="p-2 h-[80vh]">
-                        <header>
-                            <p>{loading ? "loading" : "not loading"}</p>
-                            <div className="uppercase font-bold text-center pb-2 border-b mb-2">
-                                <p className="text-sm">
-                                    {flip("Sign In", "Create Account")}
-                                </p>
-                            </div>
-                            <div className="m-auto">
-                                <h2 className="text-2xl font-light text-center">
-                                    {flip(
-                                        "Log Into Your Account",
-                                        "Create Your OpenTable Account"
-                                    )}
-                                </h2>
-                                <AuthModalInputs inputs={inputs} handleChangeInput={handleChangeInput}
-                                                 isSignin={isSignin}/>
-                                <button
-                                    className="uppercase bg-red-600 w-full text-white p-3 rounded text-sm mb-5 disabled:bg-gray-400"
-                                    disabled={disabled}
-                                    onClick={handleClick}
-                                >
-                                    {flip("Sign In", "Create Account")}
-
-                                </button>
-                            </div>
-                        </header>
+                        {loading ? <h1>Loading</h1> : boxContentsMarkup}
                     </div>
                 </Box>
             </Modal>
