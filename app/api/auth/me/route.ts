@@ -13,13 +13,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const payload = jwt.decode(token) as { email: string };
 
     if (!payload.email) {
-        const data = {errorMessage: "Unauthorized request"}
-        const json = JSON.stringify(data, null, 2)
-        return new NextResponse(json, {
-            status: 401, headers: {
-                'content-type': 'application/json; charset=utf-8',
-            }
-        })
+        return NextResponse.json({errorMessage: "Unauthorized request"}, {status: 401})
     }
 
     const user = await prisma.user.findUnique({
@@ -37,13 +31,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     });
 
     if (!user) {
-        const data = {errorMessage: "User not found"}
-        const json = JSON.stringify(data, null, 2)
-        return new NextResponse(json, {
-            status: 401, headers: {
-                'content-type': 'application/json; charset=utf-8',
-            }
-        })
+        return NextResponse.json({errorMessage: "User not found"}, {status: 401})
     }
 
     return NextResponse.json({
