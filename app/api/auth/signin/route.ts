@@ -30,13 +30,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     });
 
     if (errors.length) {
-        const data = {errorMessage: errors[0]}
-        const json = JSON.stringify(data, null, 2)
-        return new NextResponse(json, {
-            status: 400, headers: {
-                'content-type': 'application/json; charset=utf-8',
-            }
-        });
+        return NextResponse.json({errorMessage: errors[0]}, {status: 400})
     }
 
     const user = await prisma.user.findUnique({
@@ -46,25 +40,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     });
 
     if (!user) {
-        const data = {errorMessage: "Email or password is invalid"}
-        const json = JSON.stringify(data, null, 2)
-        return new NextResponse(json, {
-            status: 401, headers: {
-                'content-type': 'application/json; charset=utf-8',
-            }
-        });
+        return NextResponse.json({errorMessage: "Email or password is invalid"}, {status: 401})
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-        const data = {errorMessage: "Email or password is invalid"}
-        const json = JSON.stringify(data, null, 2)
-        return new NextResponse(json, {
-            status: 401, headers: {
-                'content-type': 'application/json; charset=utf-8',
-            }
-        });
+        return NextResponse.json({errorMessage: "Email or password is invalid"}, {status: 401})
     }
 
     const secret = new TextEncoder().encode(process.env.JWT_SECRET);
@@ -76,12 +58,12 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         .sign(secret);
 
     const userObj = {
-            firstName: user.first_name,
-            lastName: user.last_name,
-            email: user.email,
-            phone: user.phone,
-            city: user.city,
-        }
+        firstName: user.first_name,
+        lastName: user.last_name,
+        email: user.email,
+        phone: user.phone,
+        city: user.city,
+    }
 
     return NextResponse.json(userObj, {
             status: 200, headers: {
