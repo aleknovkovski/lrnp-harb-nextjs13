@@ -98,12 +98,6 @@ export default function AuthModal({isSignin}: { isSignin: boolean }) {
                 <Box sx={style}>
                     <div className="p-2 h-[80vh]">
                         <header>
-                            <h1
-                                className="text-center"
-                                onClick={()=> setAuthState({loading: false, data: null, error: "yay"})}
-                            >
-                                {error}
-                            </h1>
                             <div className="uppercase font-bold text-center pb-2 border-b mb-2">
                                 <p className="text-sm">
                                     {flip("Sign In", "Create Account")}

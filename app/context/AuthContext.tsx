@@ -36,7 +36,7 @@ export default function AuthContext({
   const [authState, setAuthState] = useState<State>({
     loading: true,
     data: null,
-    error: "Hello from AuthContext",
+    error: null,
   });
 
   return (
