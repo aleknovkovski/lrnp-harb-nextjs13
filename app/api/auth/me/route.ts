@@ -1,5 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import * as jose from "jose";
+import jwt from "jsonwebtoken";
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
 
@@ -20,5 +21,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         })
     }
 
-    return NextResponse.json({yourToken: token})
+    const payload = jwt.decode(token) as { email: string };
+
+    return NextResponse.json({yourPayload: payload})
 }
