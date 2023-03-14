@@ -1,9 +1,10 @@
 import './globals.css'
 import NavBar from "@/app/components/NavBar";
+import AuthContext from "@/app/context/AuthContext";
 
 export const metadata = {
-   title: 'Open Table',
-   description: 'Open Table',
+    title: 'Open Table',
+    description: 'Open Table',
 }
 
 export default function RootLayout({
@@ -15,11 +16,12 @@ export default function RootLayout({
         <html lang="en">
         <body>
         <main className="bg-gray-100 min-h-screen w-screen">
-            <main className="max-w-screen-2xl m-auto bg-white">
-                {/* NAVBAR */}
-                <NavBar/>
-                {children}
-            </main>
+            <AuthContext>
+                <main className="max-w-screen-2xl m-auto bg-white">
+                    <NavBar/>
+                    {children}
+                </main>
+            </AuthContext>
         </main>
         </body>
         </html>
