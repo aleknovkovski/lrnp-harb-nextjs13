@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import AuthModalInputs from "@/app/components/AuthModalInputs";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -44,6 +44,31 @@ export default function AuthModal({isSignin}: { isSignin: boolean }) {
         password: "",
     });
 
+    const [disabled, setDisabled] = useState(true);
+
+    useEffect(() => {
+        const isValidEmail = inputs.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+
+        if (isSignin) {
+            if (inputs.password.length > 3 && isValidEmail) {
+                return setDisabled(false);
+            }
+        } else {
+            if (
+                inputs.firstName.length > 1 &&
+                inputs.lastName.length > 1 &&
+                isValidEmail &&
+                inputs.password.length > 3 &&
+                inputs.city.length > 1 &&
+                inputs.phone.length > 5
+            ) {
+                return setDisabled(false);
+            }
+        }
+
+        setDisabled(true);
+    }, [inputs]);
+
     return (
         <div>
             <button
@@ -75,9 +100,14 @@ export default function AuthModal({isSignin}: { isSignin: boolean }) {
                                         "Create Your OpenTable Account"
                                     )}
                                 </h2>
-                                <AuthModalInputs inputs={inputs} handleChangeInput={handleChangeInput} isSignin={isSignin}/>
-                                <button className="uppercase bg-red-600 w-full text-white p-3 rounded text-sm mb-5 disabled:bg-gray-400">
+                                <AuthModalInputs inputs={inputs} handleChangeInput={handleChangeInput}
+                                                 isSignin={isSignin}/>
+                                <button
+                                    className="uppercase bg-red-600 w-full text-white p-3 rounded text-sm mb-5 disabled:bg-gray-400"
+                                    disabled={disabled}
+                                >
                                     {flip("Sign In", "Create Account")}
+
                                 </button>
                             </div>
                         </header>
