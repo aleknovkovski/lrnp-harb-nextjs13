@@ -96,5 +96,18 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         .setExpirationTime("24h")
         .sign(secret);
 
-    return NextResponse.json({name: firstName + " " + lastName + " w jwt: " + token})
+    const userObj = {
+        firstName: user.first_name,
+        lastName: user.last_name,
+        email: user.email,
+        phone: user.phone,
+        city: user.city,
+    }
+
+    return NextResponse.json(userObj, {
+            status: 200, headers: {
+                'Set-Cookie': `jwt=${token}; Max-Age=8640; Path=/`
+            }
+        }
+    );
 }
