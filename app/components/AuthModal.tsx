@@ -27,7 +27,7 @@ export default function AuthModal({isSignin}: { isSignin: boolean }) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const {signin} = useAuth()
+    const {signin, signup} = useAuth()
 
     const flip = (signinContent: string, signupContent: string) => {
         return isSignin ? signinContent : signupContent;
@@ -77,6 +77,8 @@ export default function AuthModal({isSignin}: { isSignin: boolean }) {
     const handleClick = () => {
         if (isSignin) {
             signin({email: inputs.email, password: inputs.password}, handleClose);
+        } else {
+            signup(inputs, handleClose);
         }
     };
     const boxContentsMarkup = (
