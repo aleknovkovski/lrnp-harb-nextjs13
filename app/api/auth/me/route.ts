@@ -5,7 +5,7 @@ import {PrismaClient} from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function POST(request: NextRequest): Promise<NextResponse> {
+export async function GET(request: NextRequest): Promise<NextResponse> {
 
     const bearerToken = request.headers.get("Authorization") as string;
     const token = bearerToken.split(" ")[1];
