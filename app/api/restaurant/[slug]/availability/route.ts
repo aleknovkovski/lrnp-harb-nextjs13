@@ -100,5 +100,5 @@ export async function GET(
         return timeAfterOpeningHour && timeBeforeClosingHour
     })
 
-    return NextResponse.json({availabilities})
+    return NextResponse.json(availabilities)
 }
