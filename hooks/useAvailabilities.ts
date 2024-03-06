@@ -10,7 +10,7 @@ export default function useAvailabilities() {
         setLoading(true)
 
         try {
-            const response = await axios.get(`http://localhost:3000/api/${slug}/vivaan-fine-indian-cuisine-ottawa/availability`, {
+            const response = await axios.get(`http://localhost:3000/api/restaurant/${slug}/availability`, {
                 params: {
                     day,
                     time,
