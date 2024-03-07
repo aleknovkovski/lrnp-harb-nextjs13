@@ -18,20 +18,26 @@ export async function GET(
         return NextResponse.json({errorMessage: "Missing parameters"}, {status: 400})
     }
 
-    const searchTimesWithTables = await findAvailableTables({slug, day, time})
-    if(searchTimesWithTables instanceof NextResponse) {return} // this is if any of the NextResponse returns inside findAvailableTables are triggered
-
     const restaurant = await prisma.restaurant.findUnique({
         where: {
             slug
         },
+        select: {
+            open_time: true,
+            close_time: true,
+            tables: true
+        }
     })
 
     if(!restaurant) {
         return NextResponse.json({errorMessage: "Restaurant not found"}, {status: 404})
     }
+
+    const searchTimesWithTables = await findAvailableTables({day, time, restaurant})
+    if(searchTimesWithTables instanceof NextResponse) {return} // this is if any of the NextResponse returns inside findAvailableTables are triggered
+
     const availabilities = searchTimesWithTables.map(t => {
-        const totalTableSeats =  t.tables.reduce((sum, table) => {
+        const totalTableSeats =  t.tables.reduce((sum: any, table: { seats: any; }) => {
             return sum + table.seats
         }, 0);
 

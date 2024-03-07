@@ -1,13 +1,17 @@
 import {times} from "@/data";
 import {NextResponse} from "next/server";
-import { PrismaClient } from "@prisma/client";
+import {PrismaClient, Table} from "@prisma/client";
 
 const prisma = new PrismaClient()
 
-export const findAvailableTables = async ({slug, day, time} : {
-    slug: string,
+export const findAvailableTables = async ({day, time, restaurant} : {
     day: string,
     time:string
+    restaurant: {
+        tables: Table[],
+        open_time: string,
+        close_time: string
+    }
 })  => {
     const searchTimes = times.find((t => {
         return t.time === time
@@ -41,21 +45,6 @@ export const findAvailableTables = async ({slug, day, time} : {
             }
         }, {})
     })
-
-    const restaurant = await prisma.restaurant.findUnique({
-        where: {
-            slug
-        },
-        select: {
-            tables: true,
-            open_time: true,
-            close_time: true
-        }
-    })
-
-    if(!restaurant) {
-        return NextResponse.json({errorMessage: "Restaurant not found"}, {status: 404})
-    }
 
     const allTables = restaurant.tables
 
