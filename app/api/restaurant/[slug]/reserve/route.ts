@@ -6,10 +6,15 @@ const prisma = new PrismaClient()
 
 export async function POST(
     request: NextRequest,
-    { params }: { params: { slug: string } }
+    { params }: { params: { slug: string }}
 ) {
     const slug = params.slug
-    const {day, time, partySize, bookerEmail, bookerPhone, bookerFirstName, bookerLastName, bookerOccasion, bookerRequest} = await request.json()
+    const {bookerEmail, bookerPhone, bookerFirstName, bookerLastName, bookerOccasion, bookerRequest} = await request.json()
+
+    const searchParams = request.nextUrl.searchParams
+    const day = searchParams.get('day')
+    const time = searchParams.get('time')
+    const partySize = searchParams.get('partySize')
 
     if(!day || !time || !partySize) {
         return NextResponse.json({errorMessage: "Missing parameters"}, {status: 400})

@@ -1,15 +1,10 @@
 "use client"
 import {useEffect, useState} from "react";
 import * as React from "react";
+import useReservation from "@/hooks/useReservation";
+import {CircularProgress} from "@mui/material";
 
-export function Form() {
-
-    const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputs({
-            ...inputs,
-            [e.target.name]: e.target.value,
-        });
-    };
+export function Form({date, partySize, slug}: {date: string; partySize: string; slug: string}) {
 
     const [inputs, setInputs] = useState({
         bookerFirstName: "",
@@ -20,7 +15,32 @@ export function Form() {
         bookerRequest: ""
     })
 
+    const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputs({
+            ...inputs,
+            [e.target.name]: e.target.value,
+        });
+    };
+
     const [disabled, setDisabled] = useState(true);
+    const {error, loading, createReservation} = useReservation()
+    const [day, time] = date.split("T")
+
+    const handleClick = async () => {
+
+        const booking = await createReservation({
+            slug,
+            partySize,
+            day,
+            time,
+            bookerFirstName: inputs.bookerFirstName,
+            bookerLastName: inputs.bookerLastName,
+            bookerPhone: inputs.bookerPhone,
+            bookerEmail: inputs.bookerEmail,
+            bookerOccasion: inputs.bookerOccasion,
+            bookerRequest: inputs.bookerRequest
+        })
+    }
 
     useEffect(() => {
         const isValidEmail = inputs.bookerEmail.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
@@ -38,7 +58,6 @@ export function Form() {
     }, [inputs]);
 
     return <div className="mt-10 flex flex-wrap justify-between w-[660px]">
-        {inputs.bookerPhone}
         <input
             type="text"
             className="border rounded p-3 w-80 mb-4"
@@ -89,9 +108,10 @@ export function Form() {
         />
         <button
             className="bg-red-600 w-full p-3 text-white font-bold rounded disabled:bg-gray-300"
-            disabled={disabled}
+            disabled={disabled || loading}
+            onClick={handleClick}
         >
-            Complete reservation
+            {loading ? <CircularProgress color="inherit"/> : "Complete reservation"}
         </button>
         <p className="mt-4 text-sm">
             By clicking “Complete reservation” you agree to the OpenTable Terms

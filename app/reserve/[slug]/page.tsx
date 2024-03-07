@@ -32,7 +32,11 @@ export default async function ReservationPage(
                     />
                     {/* HEADER */}
                     {/* FORM */}
-                    <Form/>
+                    <Form
+                        partySize={searchParams.partySize}
+                        slug={params.slug}
+                        date={searchParams.date}
+                    />
                 </div>
             </article>
         </>
