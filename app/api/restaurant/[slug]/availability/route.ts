@@ -1,6 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
-import {times} from "@/data";
 import { PrismaClient } from "@prisma/client";
+import {findAvailableTables} from "@/services/restaurant/findAvailableTables";
 
 const prisma = new PrismaClient()
 
@@ -18,71 +18,18 @@ export async function GET(
         return NextResponse.json({errorMessage: "Missing parameters"}, {status: 400})
     }
 
-    const searchTimes = times.find((t => {
-        return t.time === time
-    }))?.searchTimes
-
-    if(!searchTimes) {
-        return NextResponse.json({errorMessage: "Time not found"}, {status: 400})
-    }
-
-    const bookings = await prisma.booking.findMany({
-        where: {
-            booking_time: {
-                gte: new Date(`${day}T${searchTimes[0]}`),
-                lte: new Date(`${day}T${searchTimes[searchTimes.length-1]}`)
-            },
-        },
-        select: {
-            number_of_people: true,
-            booking_time: true,
-            tables: true
-        }
-    })
-
-    const bookedTables: {[key: string]: {[key: number]: true}} = {}
-
-    bookings.forEach(booking => {
-        bookedTables[booking.booking_time.toISOString()] = booking.tables.reduce((obj, table) => {
-            return {
-                ...obj,
-                [table.table_id]: true
-            }
-        }, {})
-    })
+    const searchTimesWithTables = await findAvailableTables({slug, day, time})
+    if(searchTimesWithTables instanceof NextResponse) {return} // this is if any of the NextResponse returns inside findAvailableTables are triggered
 
     const restaurant = await prisma.restaurant.findUnique({
         where: {
             slug
         },
-        select: {
-            tables: true,
-            open_time: true,
-            close_time: true
-        }
     })
 
     if(!restaurant) {
         return NextResponse.json({errorMessage: "Restaurant not found"}, {status: 404})
     }
-
-    const allTables = restaurant.tables
-
-    const searchTimesWithTables = searchTimes.map(searchTime => {
-        return {
-            date: new Date(`${day}T${searchTime}`),
-            time: searchTime,
-            tables: allTables
-        }
-    })
-
-    searchTimesWithTables.forEach(t => {
-        t.tables = t.tables.filter(table => {
-            const booking = bookedTables[t.date.toISOString()]
-            return !booking || !booking[table.id]
-        })
-    })
-
     const availabilities = searchTimesWithTables.map(t => {
         const totalTableSeats =  t.tables.reduce((sum, table) => {
             return sum + table.seats
