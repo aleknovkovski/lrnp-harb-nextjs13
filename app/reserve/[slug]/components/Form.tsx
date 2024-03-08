@@ -23,6 +23,7 @@ export function Form({date, partySize, slug}: {date: string; partySize: string; 
     };
 
     const [disabled, setDisabled] = useState(true);
+    const [didBook, setDidBook] = useState(false)
     const {error, loading, createReservation} = useReservation()
     const [day, time] = date.split("T")
 
@@ -38,7 +39,8 @@ export function Form({date, partySize, slug}: {date: string; partySize: string; 
             bookerPhone: inputs.bookerPhone,
             bookerEmail: inputs.bookerEmail,
             bookerOccasion: inputs.bookerOccasion,
-            bookerRequest: inputs.bookerRequest
+            bookerRequest: inputs.bookerRequest,
+            setDidBook
         })
     }
 
@@ -58,65 +60,57 @@ export function Form({date, partySize, slug}: {date: string; partySize: string; 
     }, [inputs]);
 
     return <div className="mt-10 flex flex-wrap justify-between w-[660px]">
-        <input
+        {didBook ? <h1>You are all booked up</h1> : <>
+            <input
             type="text"
             className="border rounded p-3 w-80 mb-4"
             placeholder="First name"
             name="bookerFirstName"
             value={inputs.bookerFirstName}
-            onChange={handleChangeInput}
-        />
-        <input
+            onChange={handleChangeInput}/>
+            <input
             type="text"
             className="border rounded p-3 w-80 mb-4"
             placeholder="Last name"
             name="bookerLastName"
             value={inputs.bookerLastName}
-            onChange={handleChangeInput}
-        />
-        <input
+            onChange={handleChangeInput}/><input
             type="text"
             className="border rounded p-3 w-80 mb-4"
             placeholder="Phone number"
             name="bookerPhone"
             value={inputs.bookerPhone}
-            onChange={handleChangeInput}
-        />
-        <input
+            onChange={handleChangeInput}/><input
             type="text"
             className="border rounded p-3 w-80 mb-4"
             placeholder="Email"
             name="bookerEmail"
             value={inputs.bookerEmail}
-            onChange={handleChangeInput}
-        />
-        <input
+            onChange={handleChangeInput}/><input
             type="text"
             className="border rounded p-3 w-80 mb-4"
             placeholder="Occasion (optional)"
             name="bookerOccasion"
             value={inputs.bookerOccasion}
-            onChange={handleChangeInput}
-        />
-        <input
+            onChange={handleChangeInput}/>
+            <input
             type="text"
             className="border rounded p-3 w-80 mb-4"
             placeholder="Requests (optional)"
             name="bookerRequest"
             value={inputs.bookerRequest}
-            onChange={handleChangeInput}
-        />
-        <button
-            className="bg-red-600 w-full p-3 text-white font-bold rounded disabled:bg-gray-300"
-            disabled={disabled || loading}
-            onClick={handleClick}
-        >
-            {loading ? <CircularProgress color="inherit"/> : "Complete reservation"}
-        </button>
-        <p className="mt-4 text-sm">
-            By clicking “Complete reservation” you agree to the OpenTable Terms
-            of Use and Privacy Policy. Standard text message rates may apply.
-            You may opt out of receiving text messages at any time.
-        </p>
+            onChange={handleChangeInput}/>
+            <button
+                className="bg-red-600 w-full p-3 text-white font-bold rounded disabled:bg-gray-300"
+                disabled={disabled || loading}
+                onClick={handleClick}
+            >
+                {loading ? <CircularProgress color="inherit"/> : "Complete reservation"}
+            </button>
+            <p className="mt-4 text-sm">
+                By clicking “Complete reservation” you agree to the OpenTable Terms
+                of Use and Privacy Policy. Standard text message rates may apply.
+                You may opt out of receiving text messages at any time.
+            </p></>}
     </div>;
 }
